@@ -110,7 +110,7 @@ return [
     */
 
     'preloader' => [
-        'enabled' => true,
+        'enabled' => false,
         'mode' => 'fullscreen',
         'img' => [
             'path' => 'vendor/adminlte/dist/img/AdminLTELogo.png',
@@ -327,6 +327,11 @@ return [
             'label' => 4,
             'label_color' => 'success',
         ],
+        [
+            'text' => 'Χρήστες',
+            'route' => 'users',
+            'icon' => 'far fa-fw fa-user'
+        ],
         ['header' => 'account_settings'],
         [
             'text' => 'profile',
@@ -430,7 +435,7 @@ return [
 
     'plugins' => [
         'Datatables' => [
-            'active' => false,
+            'active' => true,
             'files' => [
                 [
                     'type' => 'js',
@@ -481,6 +486,21 @@ return [
                     'type' => 'js',
                     'asset' => false,
                     'location' => '//cdn.jsdelivr.net/npm/sweetalert2@8',
+                ],
+            ],
+        ],
+        'toastr' => [
+            'active' => true,
+            'files' => [
+                [
+                    'type' => 'css',
+                    'asset' => false,
+                    'location' => '//cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css',
+                ],
+                [
+                    'type' => 'js',
+                    'asset' => false,
+                    'location' => '//cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js',
                 ],
             ],
         ],
