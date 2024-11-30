@@ -98,6 +98,7 @@
                         <table id="mydatatable" class="table table-striped table-bordered nowrap">
                             <thead>
                                 <tr>
+                                    <th>User</th>
                                     <th>Desciption</th>
                                     <th>Changes</th>
                                     <th>Date</th>
@@ -118,6 +119,7 @@
     @include('inc.mainjs')
     <script>
             initializeDataTable('{{route('user.activity')}}', [
+                { data: 'user', "type": "string" },
                 { data: 'description', "type": "string" },
                 { data: 'changes', "type": "html" },
                 { data: 'date', "type": "string" }
