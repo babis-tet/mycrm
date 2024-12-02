@@ -52,7 +52,7 @@
 
                     <div class="form-group {{ $errors->has('password') ? 'has-error' : '' }}">
                         <label for="password">Password *</label>
-                        <input type="password" id="password" name="password" class="form-control" value="{{ old('password', isset($record) ? $record->password : '') }}" required>
+                        <input type="password" id="password" name="password" class="form-control" value="{{ old('password') }}" required>
                         @if($errors->has('password'))
                             <p class="help-block">
                                 {{ $errors->first('password') }}
@@ -60,20 +60,20 @@
                         @endif
                     </div>
 
-        {{--            <div class="form-group {{ $errors->has('role_id') ? 'has-error' : '' }}">--}}
-        {{--                <label for="role_id">Ρόλος * </label>--}}
-        {{--                <select class="form-control select2" name="role_id">--}}
-        {{--                    <option value="">Επιλογή...</option>--}}
-        {{--                    @foreach (\App\Models\Role::all() as $t)--}}
-        {{--                        <option value="{{$t->id}}"> {{$t->title}}</option>--}}
-        {{--                    @endforeach--}}
-        {{--                </select>--}}
-        {{--                @if($errors->has('role_id'))--}}
-        {{--                    <p class="help-block">--}}
-        {{--                        {{ $errors->first('role_id') }}--}}
-        {{--                    </p>--}}
-        {{--                @endif--}}
-        {{--            </div>--}}
+                    <div class="form-group {{ $errors->has('role_id') ? 'has-error' : '' }}">
+                        <label for="role_id">Ρόλος * </label>
+                        <select class="form-control select2" name="role_id">
+                            <option value="">Επιλογή...</option>
+                            @foreach($roles as $role)
+                                <option value="{{$role->name}}" @if (in_array($role->name,$current)) selected @endif >{{$role->name}} </option>
+                            @endforeach
+                        </select>
+                        @if($errors->has('role_id'))
+                            <p class="help-block">
+                                {{ $errors->first('role_id') }}
+                            </p>
+                        @endif
+                    </div>
 
 
 

@@ -327,10 +327,36 @@ return [
             'label' => 4,
             'label_color' => 'success',
         ],
+        ['header' => 'ΡΥΘΜΙΣΕΙΣ'],
         [
-            'text' => 'Χρήστες',
-            'route' => 'users',
-            'icon' => 'far fa-fw fa-user'
+            'text'        => 'Ρυθμίσεις',
+            'url'         => 'settings',
+            'icon' => 'fa-fw fas fa-cogs',
+            //'label'       => 4,
+            'label_color' => 'success',
+            //'can'  => 'settings_access',
+        ],
+        [
+            'text'    => 'Διαχείριση Χρηστών',
+            'icon'    => 'fas fa-fw fa-users',
+            //'can'     => 'user_management_access',
+            'submenu' => [
+                [
+                    'text' => 'Χρήστες',
+                    'route' => 'users',
+                    'icon' => 'fa-fw fas fa-user',
+                ],
+                [
+                    'text'    => 'Ρόλοι',
+                    'route'   => 'roles',
+                    'icon'    => 'fa-fw fas fa-briefcase',
+                ],
+                [
+                    'text' => 'Δικαιώματα',
+                    'route' => 'permissions',
+                    'icon' => 'fa-fw fas fa-unlock-alt',
+                ],
+            ],
         ],
         ['header' => 'account_settings'],
         [
