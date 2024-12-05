@@ -1,14 +1,23 @@
 <?php
 
+use App\Http\Controllers\CustomerController;
+use App\Http\Controllers\SupplierController;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
-    return view('welcome');
+    return view('auth.login');
 });
 
-Auth::routes();
+//Auth::routes();
+Auth::routes(['register' => false]);
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+
+
+    Route::resource('customers', CustomerController::class);
+    Route::any('customers/records', [App\Http\Controllers\CustomerController::class, 'records'])->name('customer_records');
+
+    Route::resource('suppliers', SupplierController::class);
 
 
     Route::get('users', [App\Http\Controllers\UserController::class, 'index'])->name('users');
