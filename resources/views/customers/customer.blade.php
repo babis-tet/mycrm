@@ -210,13 +210,13 @@
                         <div class="tab-pane fade" id="contacts" role="tabpanel" aria-labelledby="contacts-tab" bis_skin_checked="1">
                             @include('inc.modals.customer.contact')
                         </div>
-                        <div class="tab-pane fade" id="offers" role="tabpanel" aria-labelledby="offers-tab" wire:ignore>
+                        <div class="tab-pane fade" id="offers" role="tabpanel" aria-labelledby="offers-tab" bis_skin_checked="1">
                             @isset($customer)
                                <livewire:upload-offer :id="$customer->id" />
                             @endisset
                         </div>
-                        <div class="tab-pane fade" id="contracts" role="tabpanel" aria-labelledby="contracts-tab">
-                            simbolaia
+                        <div class="tab-pane fade" id="contracts" role="tabpanel" aria-labelledby="contracts-tab" bis_skin_checked="1">
+                            <div>simbolaia</div>
                         </div>
                     </div>
                 </div>
@@ -235,9 +235,36 @@
     @include('inc.mainjs')
     <script>
 
+
+        // document.addEventListener('DOMContentLoaded', function() {
+        //     // Get all tabs
+        //     const tabs = document.querySelectorAll('[data-toggle="pill"]');
+        //
+        //     tabs.forEach(tab => {
+        //         tab.addEventListener('click', function(e) {
+        //             e.preventDefault();
+        //             // Remove active class from all tabs and panes
+        //             tabs.forEach(t => {
+        //                 t.classList.remove('active');
+        //                 const pane = document.querySelector(t.getAttribute('href'));
+        //                 if (pane) {
+        //                     pane.classList.remove('show', 'active');
+        //                 }
+        //             });
+        //
+        //             // Add active class to clicked tab and its pane
+        //             this.classList.add('active');
+        //             const targetPane = document.querySelector(this.getAttribute('href'));
+        //             if (targetPane) {
+        //                 targetPane.classList.add('show', 'active');
+        //             }
+        //         });
+        //     });
+        // });
+
         var recordID = null;
 
-        initializeDataTable('{{route('customerContacts')}}', [
+        initializeDataTable('{{ route('customerContacts', ['id' => isset($customer) ? $customer->id : null]) }}', [
                 { data: 'name', "type": "string" },
                 { data: 'email', "type": "string" },
                 { data: 'action', "type": "html" }
@@ -272,7 +299,10 @@
 
            $('#saveContactBtn').on('click', function () {
                let formData = $('#contact').serialize();
-               formData += '&customer_id={{$customer->id}}'
+
+               @isset($customer)
+                   formData += '&customer_id={{$customer->id}}';
+               @endisset
 
                 let url = recordID != null ? `/contact/${recordID}/update` : '/contact/save';
                 let method = recordID != null ? 'PUT' : 'POST';

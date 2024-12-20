@@ -16,10 +16,16 @@ class UploadOffer extends Component
     public $id;
     public $documents;
 
+    protected $listeners = ['tabShown' => 'clear'];
     public function mount($id)
     {
         $this->id = $id;
         $this->loadDocuments();
+    }
+
+
+    public function clear() {
+        $this->documents = [];
     }
 
     public function loadDocuments()
@@ -35,7 +41,7 @@ class UploadOffer extends Component
     public function uploadfile()
     {
         $this->validate([
-            'myfilename' => 'required|file|max:2048', // Max file size of 2MB
+            'myfilename' => 'required|file|max:5048', // Max file size of 2MB
         ]);
 
         // Create a new document and associate the uploaded file
@@ -65,6 +71,12 @@ class UploadOffer extends Component
             session()->flash('message', 'File deleted successfully.');
 
             $this->loadDocuments();
+
+            activity()
+            ->causedBy(auth()->user()) // Log which user performed the action
+            ->withProperties(['file_name' => $document->name])
+            ->log('Offer Delete file '.$document->name);
+
         } else {
             session()->flash('error', 'File not found.');
         }

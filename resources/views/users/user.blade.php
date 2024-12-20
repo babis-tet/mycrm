@@ -83,7 +83,7 @@
 
         <div class="card-body">
                 <div class="dt-responsive table-responsive">
-                        <table id="mydatatable" class="table table-striped table-bordered nowrap">
+                        <table id="mydatatable" class="mydatatable table table-striped table-bordered nowrap">
                             <thead>
                                 <tr>
                                     <th>User</th>

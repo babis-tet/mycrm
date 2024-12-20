@@ -6,12 +6,14 @@
                    <div class="input-group">
                       <div class="custom-file">
                         <input type="file" class="custom-file-input" id="offeruploadfile"  wire:model="myfilename">
-                        <label class="custom-file-label" for="offeruploadfile">Choose file</label>
+                        <label class="custom-file-label" for="offeruploadfile">@if ($myfilename) {{ $myfilename->getClientOriginalName() }} @else Choose file @endif</label>
                       </div>
                       <div class="input-group-append">
-                        <span class="input-group-text" wire:click="uploadfile">Upload</span>
+                        <span class="input-group-text" wire:click="uploadfile" @if ($myfilename) style="background:green;color:#fff;cursor:pointer" @endif>Upload</span>
                       </div>
+
                     </div>
+    </div>
     @if (session()->has('message'))
         <p class="text-green-500">{{ session('message') }}</p>
     @endif

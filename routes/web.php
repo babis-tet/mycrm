@@ -8,16 +8,17 @@ Route::get('/', function () {
     return view('auth.login');
 });
 
-//Auth::routes();
+Auth::routes();
 Auth::routes(['register' => false]);
 
-Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+Route::middleware('auth')->group(function(){
+    Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 
 
     Route::resource('customers', CustomerController::class);
     Route::any('customers/records', [App\Http\Controllers\CustomerController::class, 'records'])->name('customer_records');
 
-    Route::any('customer/contacts', [App\Http\Controllers\ContactController::class, 'records'])->name('customerContacts');
+    Route::any('customer/contacts/{id}', [App\Http\Controllers\ContactController::class, 'records'])->name('customerContacts');
 
 
     Route::get('contact/{id}/edit', [App\Http\Controllers\ContactController::class, 'edit'])->name('editcontact');
@@ -49,3 +50,4 @@ Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name
     Route::post('role/update/{id}', [App\Http\Controllers\RoleController::class, 'update'])->name('update_role');
     Route::post('role/save', [App\Http\Controllers\RoleController::class, 'store'])->name('save_role');
     Route::any('role/records', [App\Http\Controllers\RoleController::class, 'records'])->name('role_records');
+});
