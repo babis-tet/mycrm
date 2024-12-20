@@ -21,7 +21,7 @@
                 <div class="card-body" bis_skin_checked="1">
                     <ul class="nav nav-tabs" id="custom-content-below-tab" role="tablist">
                         <li class="nav-item">
-                            <a class="nav-link active" id="general-tab" data-toggle="pill" href="#general" role="tab" aria-controls="general" aria-selected="true"> <i class="fas fa-fw fa-user "></i> Στοιχεία</a>
+                            <a class="nav-link" id="general-tab" data-toggle="pill" href="#general" role="tab" aria-controls="general" aria-selected="true"> <i class="fas fa-fw fa-user "></i> Στοιχεία</a>
                         </li>
                         <li class="nav-item">
                             <a class="nav-link" id="contacts-tab" data-toggle="pill" href="#contacts" role="tab" aria-controls="contacts" aria-selected="false"><i class="fas fa-fw fa-users "></i> Επαφές</a>
@@ -208,19 +208,16 @@
                         </div>
 
                         <div class="tab-pane fade" id="contacts" role="tabpanel" aria-labelledby="contacts-tab" bis_skin_checked="1">
-                            epafes
+                            @include('inc.modals.customer.contact')
                         </div>
-                        <div class="tab-pane fade" id="offers" role="tabpanel" aria-labelledby="offers-tab">
-                            @if($customer)
+                        <div class="tab-pane fade" id="offers" role="tabpanel" aria-labelledby="offers-tab" wire:ignore>
+                            @isset($customer)
                                <livewire:upload-offer :id="$customer->id" />
-                                @endif
+                            @endisset
                         </div>
                         <div class="tab-pane fade" id="contracts" role="tabpanel" aria-labelledby="contracts-tab">
-                            contracts
+                            simbolaia
                         </div>
-
-
-
                     </div>
                 </div>
 
@@ -236,4 +233,79 @@
 
 @section('js')
     @include('inc.mainjs')
+    <script>
+
+        var recordID = null;
+
+        initializeDataTable('{{route('customerContacts')}}', [
+                { data: 'name', "type": "string" },
+                { data: 'email', "type": "string" },
+                { data: 'action', "type": "html" }
+            ]);
+
+        $(document).ready(function () {
+             $( ".mydatatable" ).on( "click", ".editRecord", function() {
+                 var contact_id = $(this).val();
+                 recordID = contact_id;
+
+                 //console.log(recordID)
+                 //remove all errors
+                 $('.is-invalid').removeClass('is-invalid');
+
+                 $.ajax({
+                        url: `/contact/${contact_id}/edit`,
+                        method: 'GET',
+                        success: function(response) {
+                                $('#contactPopup #name').val(response.name);
+                                $('#contactPopup #surname').val(response.surname);
+                                $('#contactPopup #email').val(response.email);
+                                $('#contactPopup #phone').val(response.phone);
+                                $('#contactPopup #address').val(response.address);
+                                $('#contactPopup #mobile').val(response.mobile);
+                                $('#contactPopup #position').val(response.position);
+                                $('#recordID').val(response.id);
+                                $('#contactPopup').modal('show');
+                        }
+
+                    });
+             })
+
+           $('#saveContactBtn').on('click', function () {
+               let formData = $('#contact').serialize();
+               formData += '&customer_id={{$customer->id}}'
+
+                let url = recordID != null ? `/contact/${recordID}/update` : '/contact/save';
+                let method = recordID != null ? 'PUT' : 'POST';
+
+                $.ajax({
+                    url: url,
+                    method: method,
+                    data: formData,
+                    success: function () {
+                        $('#contactPopup').modal('hide');
+                        $('#contact')[0].reset();
+                        $('#recordId').val(null);
+                        $('.mydatatable').DataTable().ajax.reload();
+                    },
+                    error: function (xhr) {
+                            if (xhr.status === 422) {
+                                // Clear previous error messages
+                                console.log(xhr)
+                                //$('.invalid-feedback').remove();
+                                let errors = xhr.responseJSON.errors;
+                                console.log(errors)
+                                for (let field in errors) {
+                                    let errorMessage = errors[field][0];
+                                    $(`#contact #${field}`).addClass('is-invalid');
+                                    $(`#contact #${field}`).after(`<p class="error invalid-feedback">${errorMessage}</p>`);
+                                }
+                            } else {
+                                alert('An unexpected error occurred. Please try again.');
+                            }
+                    }
+                });
+           });
+        });
+
+    </script>
 @stop

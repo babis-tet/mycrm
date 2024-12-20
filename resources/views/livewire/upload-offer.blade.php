@@ -9,7 +9,7 @@
                         <label class="custom-file-label" for="offeruploadfile">Choose file</label>
                       </div>
                       <div class="input-group-append">
-                        <span class="input-group-text" wire:click="upload">Upload</span>
+                        <span class="input-group-text" wire:click="uploadfile">Upload</span>
                       </div>
                     </div>
     @if (session()->has('message'))
@@ -55,7 +55,6 @@
                         <td><button wire:click="deleteFile({{ $document->id }})" class="btn btn-danger btn-sm ml-2">Delete</button></td>
                     </tr>
                       @empty
-                    <li>No files uploaded yet.</li>
                     @endforelse
                   </tbody>
                 </table>

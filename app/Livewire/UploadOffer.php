@@ -16,20 +16,11 @@ class UploadOffer extends Component
     public $id;
     public $documents;
 
-
-    //public function mount($id)
-    //{
-        ////$this->documents = Document::where('documentable_type',Customer::class)->where('documentable_id',$this->id);
-        //$this->documents = Document::all();
-      //  $this->documents = Document::where('documentable_type',Customer::class)->where('documentable_id',$id);
-    //}
-
     public function mount($id)
     {
         $this->id = $id;
         $this->loadDocuments();
     }
-
 
     public function loadDocuments()
     {
@@ -41,8 +32,7 @@ class UploadOffer extends Component
             ->get();
     }
 
-
-    public function upload()
+    public function uploadfile()
     {
         $this->validate([
             'myfilename' => 'required|file|max:2048', // Max file size of 2MB
@@ -59,6 +49,9 @@ class UploadOffer extends Component
 
         // Reset the file input
         $this->myfilename = null;
+
+        $this->loadDocuments();
+
         session()->flash('message', 'File uploaded successfully.');
     }
 
@@ -76,7 +69,6 @@ class UploadOffer extends Component
             session()->flash('error', 'File not found.');
         }
     }
-
 
     public function render()
     {

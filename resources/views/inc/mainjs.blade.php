@@ -1,5 +1,4 @@
 <script>
-
     function initializeDataTable(url, columns) {
         $(document).ready(function() {
             $.ajaxSetup({
@@ -8,7 +7,7 @@
                 }
             });
 
-            jQuery('#mydatatable').DataTable({
+            jQuery('.mydatatable').DataTable({
                 "lengthMenu": [20, 50, 100],
                 "pageLength": 50,
                 "processing": true,

@@ -17,6 +17,14 @@ Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name
     Route::resource('customers', CustomerController::class);
     Route::any('customers/records', [App\Http\Controllers\CustomerController::class, 'records'])->name('customer_records');
 
+    Route::any('customer/contacts', [App\Http\Controllers\ContactController::class, 'records'])->name('customerContacts');
+
+
+    Route::get('contact/{id}/edit', [App\Http\Controllers\ContactController::class, 'edit'])->name('editcontact');
+    Route::put('contact/{id}/update', [App\Http\Controllers\ContactController::class, 'update'])->name('updatecontact');
+    Route::post('contact/save', [App\Http\Controllers\ContactController::class, 'store'])->name('contactcreate');
+
+
     Route::resource('suppliers', SupplierController::class);
 
 
