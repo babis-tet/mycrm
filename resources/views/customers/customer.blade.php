@@ -30,7 +30,7 @@
                             <a class="nav-link" id="offers-tab" data-toggle="pill" href="#offers" role="tab" aria-controls="offers" aria-selected="false"><i class="fas fa-fw fa-paste"></i> Προσφορές</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" id="agreements-tab" data-toggle="pill" href="#agreements" role="tab" aria-controls="agreements" aria-selected="false"><i class="fas fa-fw fa-handshake"></i> Συμβόλαια</a>
+                            <a class="nav-link" id="contracts-tab" data-toggle="pill" href="#contracts" role="tab" aria-controls="contracts" aria-selected="false"><i class="fas fa-fw fa-paste"></i> Συμβόλαια</a>
                         </li>
                     </ul>
                     <br>
@@ -208,15 +208,19 @@
                         </div>
 
                         <div class="tab-pane fade" id="contacts" role="tabpanel" aria-labelledby="contacts-tab" bis_skin_checked="1">
-                            <livewire:test-component id="{{$customer->id}}" />
-                            {{--                           @include('inc.modals.customer.contact')--}}
+                            epafes
                         </div>
-                        <div class="tab-pane fade" id="offers" role="tabpanel" aria-labelledby="offers-tab" bis_skin_checked="1">
-                            offers
+                        <div class="tab-pane fade" id="offers" role="tabpanel" aria-labelledby="offers-tab">
+                            @if($customer)
+                               <livewire:upload-offer :id="$customer->id" />
+                                @endif
                         </div>
-                        <div class="tab-pane fade" id="agreements" role="tabpanel" aria-labelledby="agreements-tab" bis_skin_checked="1">
-                            agreements
+                        <div class="tab-pane fade" id="contracts" role="tabpanel" aria-labelledby="contracts-tab">
+                            contracts
                         </div>
+
+
+
                     </div>
                 </div>
 
