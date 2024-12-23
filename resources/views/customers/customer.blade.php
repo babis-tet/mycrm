@@ -235,36 +235,8 @@
     @include('inc.mainjs')
     <script>
 
-
-        // document.addEventListener('DOMContentLoaded', function() {
-        //     // Get all tabs
-        //     const tabs = document.querySelectorAll('[data-toggle="pill"]');
-        //
-        //     tabs.forEach(tab => {
-        //         tab.addEventListener('click', function(e) {
-        //             e.preventDefault();
-        //             // Remove active class from all tabs and panes
-        //             tabs.forEach(t => {
-        //                 t.classList.remove('active');
-        //                 const pane = document.querySelector(t.getAttribute('href'));
-        //                 if (pane) {
-        //                     pane.classList.remove('show', 'active');
-        //                 }
-        //             });
-        //
-        //             // Add active class to clicked tab and its pane
-        //             this.classList.add('active');
-        //             const targetPane = document.querySelector(this.getAttribute('href'));
-        //             if (targetPane) {
-        //                 targetPane.classList.add('show', 'active');
-        //             }
-        //         });
-        //     });
-        // });
-
         var recordID = null;
-
-        initializeDataTable('{{ route('customerContacts', ['id' => isset($customer) ? $customer->id : null]) }}', [
+        initializeDataTable('{{ route('customerContacts', ['id' => isset($customer) ? $customer->id : 0,'type' => 'customer']) }}', [
                 { data: 'name', "type": "string" },
                 { data: 'email', "type": "string" },
                 { data: 'action', "type": "html" }
@@ -301,7 +273,8 @@
                let formData = $('#contact').serialize();
 
                @isset($customer)
-                   formData += '&customer_id={{$customer->id}}';
+                   formData += '&contactable_id={{$customer->id}}';
+                   formData += '&contactable_type=customer';
                @endisset
 
                 let url = recordID != null ? `/contact/${recordID}/update` : '/contact/save';

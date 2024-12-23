@@ -14,19 +14,21 @@ Auth::routes(['register' => false]);
 Route::middleware('auth')->group(function(){
     Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 
-
+    //customers
     Route::resource('customers', CustomerController::class);
     Route::any('customers/records', [App\Http\Controllers\CustomerController::class, 'records'])->name('customer_records');
+    Route::any('customer/contacts/{id}/{type}', [App\Http\Controllers\ContactController::class, 'records'])->name('customerContacts');
 
-    Route::any('customer/contacts/{id}', [App\Http\Controllers\ContactController::class, 'records'])->name('customerContacts');
-
-
+    //contact
     Route::get('contact/{id}/edit', [App\Http\Controllers\ContactController::class, 'edit'])->name('editcontact');
     Route::put('contact/{id}/update', [App\Http\Controllers\ContactController::class, 'update'])->name('updatecontact');
     Route::post('contact/save', [App\Http\Controllers\ContactController::class, 'store'])->name('contactcreate');
+    Route::get('phonebook', [App\Http\Controllers\ContactController::class, 'phonebook'])->name('phonebook');
 
-
+    //suppliers
     Route::resource('suppliers', SupplierController::class);
+    Route::any('suppliers/records', [App\Http\Controllers\SupplierController::class, 'records'])->name('supplier_records');
+    Route::any('supplier/contacts/{id}/{type}', [App\Http\Controllers\ContactController::class, 'records'])->name('supplierContacts');
 
 
     Route::get('users', [App\Http\Controllers\UserController::class, 'index'])->name('users');

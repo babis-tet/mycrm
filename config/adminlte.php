@@ -348,6 +348,14 @@ return [
             //'can'  => 'customer_access',
         ],
         [
+            'text'        => 'Κατάλογος',
+            'url'         => 'phonebook',
+            'icon'        => 'fas fa-fw fa-sun',
+            //'label'       => 4,
+            'label_color' => 'success',
+            //'can'  => 'customer_access',
+        ],
+        [
             'text'        => 'Υπάλληλοι',
             'url'         => 'employee',
             'icon' => 'fas fa-fw fa-book',
