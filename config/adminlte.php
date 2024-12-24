@@ -316,6 +316,14 @@ return [
             'text' => 'search',
         ],
         [
+            'text'        => 'Εταιρία',
+            'url'         => 'company',
+            'icon' => 'fas fa-fw fa-building',
+            //'label'       => 4,
+            'label_color' => 'success',
+            //'can'  => 'customer_access',
+        ],
+        [
             'text'        => 'Πελάτες',
             'url'         => 'customers',
             'icon' => 'fas fa-fw fa-user',
@@ -350,7 +358,7 @@ return [
         [
             'text'        => 'Κατάλογος',
             'url'         => 'phonebook',
-            'icon'        => 'fas fa-fw fa-sun',
+            'icon'        => 'fas fa-fw fa-phone',
             //'label'       => 4,
             'label_color' => 'success',
             //'can'  => 'customer_access',
@@ -590,6 +598,16 @@ return [
                     'type' => 'js',
                     'asset' => false,
                     'location' => '//cdnjs.cloudflare.com/ajax/libs/pace/1.0.2/pace.min.js',
+                ],
+            ],
+        ],
+        'CustomCss' => [
+            'active' => true,
+            'files' => [
+                [
+                    'type' => 'css',
+                    'asset' => true,
+                    'location' => '/css/custom.css',
                 ],
             ],
         ],

@@ -17,10 +17,25 @@
 @push('css')
 <style>
 
+    .widget-user .widget-user-header {
+        height: auto;
+    }
+
+    .alphabet-switcher {
+        padding-top:20px;
+        text-align: center;
+    }
+
+    .alphabet-switcher button.selected {
+        background-color: #333a40;
+        color: white;
+    }
+
     .letters {
         display: flex;
         justify-content: center;
         gap: 10px;
+        padding-top:20px;
     }
 
     .letters button {
@@ -28,7 +43,7 @@
         font-size: 16px;
     }
     .letters button.selected {
-        background-color: #007bff;
+        background-color: #333a40;
         color: white;
     }
 

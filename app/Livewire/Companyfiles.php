@@ -2,25 +2,25 @@
 
 namespace App\Livewire;
 
-use App\Models\Customer;
 use App\Models\Document;
+use App\Models\Company;
 use Livewire\Component;
 use Livewire\WithFileUploads;
 
 use Spatie\Activitylog\Models\Activity;
 use Illuminate\Support\Facades\Auth;
-class UploadOffer extends Component
+
+class Companyfiles extends Component
 {
     use WithFileUploads;
     public $myfilename;
     public $id;
     public $documents;
+
     public $mysearch = '';
 
-    protected $listeners = ['tabShown' => 'clear'];
-    public function mount($id)
+    public function mount()
     {
-        $this->id = $id;
         $this->loadDocuments();
     }
 
@@ -32,8 +32,7 @@ class UploadOffer extends Component
     public function loadDocuments()
     {
         // Fetch documents for the specified customer ID
-        $this->documents = Document::where('documentable_type', Customer::class)
-            ->where('documentable_id', $this->id)
+        $this->documents = Document::where('documentable_type', Company::class)
             ->where('name', 'like', '%' . $this->mysearch . '%')
             ->with('media')
             ->latest()
@@ -47,7 +46,7 @@ class UploadOffer extends Component
         ]);
 
         // Create a new document and associate the uploaded file
-        $document = Document::create(['name' => $this->myfilename->getClientOriginalName(), 'documentable_type' => Customer::class, 'documentable_id' => $this->id]);
+        $document = Document::create(['name' => $this->myfilename->getClientOriginalName(), 'documentable_type' => Company::class, 'documentable_id' => 1]);
         $document->addMedia($this->myfilename)->toMediaCollection();
 
         activity()
@@ -77,7 +76,7 @@ class UploadOffer extends Component
             activity()
             ->causedBy(auth()->user()) // Log which user performed the action
             ->withProperties(['file_name' => $document->name])
-            ->log('Offer Delete file '.$document->name);
+            ->log('Company File Deleted '.$document->name);
 
         } else {
             session()->flash('error', 'File not found.');
@@ -87,6 +86,6 @@ class UploadOffer extends Component
     public function render()
     {
         $this->loadDocuments();
-        return view('livewire.upload-offer');
+        return view('livewire.companyfiles');
     }
 }

@@ -30,6 +30,9 @@ Route::middleware('auth')->group(function(){
     Route::any('suppliers/records', [App\Http\Controllers\SupplierController::class, 'records'])->name('supplier_records');
     Route::any('supplier/contacts/{id}/{type}', [App\Http\Controllers\ContactController::class, 'records'])->name('supplierContacts');
 
+    //company
+    Route::any('company', [App\Http\Controllers\CompanyController::class, 'index'])->name('company');
+
 
     Route::get('users', [App\Http\Controllers\UserController::class, 'index'])->name('users');
     Route::get('user', [App\Http\Controllers\UserController::class, 'create'])->name('user');

@@ -13,12 +13,30 @@ class Phonebook extends Component
     public $selectedLetter = null;
     public $letters = [];
 
+    public $currentAlphabet = 'greek'; // Default to Latin alphabet
+
     public function mount()
     {
         // Generate letters A-Z
-        $this->letters = range('A', 'Z');
+        $this->setGreekAlphabet();
         // Initially load all customers or none
         $this->records = collect();
+    }
+
+    public function setLatinAlphabet()
+    {
+        $this->currentAlphabet = 'latin';
+        $this->letters = range('A', 'Z'); // Set letters to A-Z
+    }
+
+    public function setGreekAlphabet()
+    {
+        $this->currentAlphabet = 'greek';
+        $this->letters = [
+        'Α', 'Β', 'Γ', 'Δ', 'Ε', 'Ζ', 'Η', 'Θ',
+        'Ι', 'Κ', 'Λ', 'Μ', 'Ν', 'Ξ', 'Ο', 'Π',
+        'Ρ', 'Σ', 'Τ', 'Υ', 'Φ', 'Χ', 'Ψ', 'Ω'
+        ];
     }
 
     public function selectLetter($letter)
