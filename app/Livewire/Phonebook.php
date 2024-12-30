@@ -43,17 +43,13 @@ class Phonebook extends Component
     {
         $this->selectedLetter = $letter;
 
-        // Query customers whose names start with the selected letter
-        $customers = Customer::where('name', 'LIKE', "$letter%")->orderBy('name')->get();
+        $customers = Customer::where('name', 'LIKE', "$letter%")->orderBy('name')->get()->toArray();
+        $suppliers = Supplier::where('name', 'LIKE', "$letter%")->orderBy('name')->get()->toArray();
+        $contacts = Contact::where('name', 'LIKE', "$letter%")->orderBy('name')->get()->toArray();
 
-        // Query suppliers
-        $suppliers = Supplier::where('name', 'LIKE', "$letter%")->orderBy('name')->get();
+        // Merge and sort the arrays
+        $this->records = collect(array_merge($customers, $suppliers, $contacts))->sortBy('name');
 
-        // Query contacts
-        $contacts = Contact::where('name', 'LIKE', "$letter%")->orderBy('name')->get();
-
-        // Merge both collections
-        $this->records = $customers->merge($suppliers)->merge($contacts)->sortBy('name');
     }
 
     public function render()

@@ -36,7 +36,7 @@
               <!-- Add the bg color to the header using any of the bg-* classes -->
               <div class="widget-user-header" style="background: #d9e0e8">
                 <h5 class="widget-user-desc"><i class="fas fa-fw fa-user "></i></h5>
-                  <h3 class="widget-user-username">{{ $record->name }}</h3>
+                  <h3 class="widget-user-username">{{ $record['name'] ?? '' }}</h3>
               </div>
               <div class="widget-user-image">
 
@@ -46,7 +46,7 @@
                   <div class="col-sm-4 border-right">
                     <div class="description-block">
                         <h5 class="description-header"><i class="fas fa-fw fa-phone "></i></h5>
-                      <span class="description-text">{{ $record->phone }}</span>
+                      <span class="description-text">{{ $record['phone'] ?? '' }}</span>
                     </div>
                     <!-- /.description-block -->
                   </div>
@@ -54,7 +54,7 @@
                   <div class="col-sm-4 border-right">
                     <div class="description-block">
                       <h5 class="description-header"><i class="fas fa-fw fa-mobile "></i></h5>
-                      <span class="description-text">{{ $record->mobile }}</span>
+                      <span class="description-text">{{ $record['mobile'] ?? '' }}</span>
                     </div>
                     <!-- /.description-block -->
                   </div>
@@ -62,7 +62,7 @@
                   <div class="col-sm-4">
                     <div class="description-block">
                         <h5 class="description-header"><i class="fas fa-fw fa-envelope "></i></h5>
-                      <span class="description-text">{{ $record->email }}</span>
+                      <span class="description-text">{{ $record['email'] ?? '' }}</span>
                     </div>
                     <!-- /.description-block -->
                   </div>

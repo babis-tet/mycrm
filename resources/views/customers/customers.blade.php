@@ -28,7 +28,7 @@
 
 
 @push('css')
-<link href="{{ mix('resources/css/app.css') }}" rel="stylesheet">
+{{--<link href="{{ mix('resources/css/app.css') }}" rel="stylesheet">--}}
 @endpush
 
 @section('js')

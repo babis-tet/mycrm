@@ -29,6 +29,7 @@
     .alphabet-switcher button.selected {
         background-color: #333a40;
         color: white;
+        padding:10px;
     }
 
     .letters {

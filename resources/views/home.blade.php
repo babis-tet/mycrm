@@ -3,22 +3,21 @@
 @section('title', 'Dashboard')
 
 @section('content_header')
-    <h1>Dashboard</h1>
+
 @stop
 
 @section('content')
     <p class="p-10 bg-red-100">Welcome to this beautiful admin panel....</p>
-    <button>Test</button>
+    <button class="btn btn-primary">Test</button>
 @stop
 
 @section('css')
-    {{-- Add here extra stylesheets --}}
-    {{-- <link rel="stylesheet" href="/css/admin_custom.css"> --}}
+
 @stop
 
 
 @push('css')
-<link href="{{ mix('resources/css/app.css') }}" rel="stylesheet">
+
 @endpush
 
 @section('js')
@@ -26,9 +25,9 @@
 
     <script>
         $(document).ready(function(){
-  $("button").click(function(){
-        toastr["success"]("test", "test")
-  });
+          $("button").click(function(){
+                toastr["success"]("test", "test")
+          });
 });
     </script>
 @stop
