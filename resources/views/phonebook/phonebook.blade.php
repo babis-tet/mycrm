@@ -51,6 +51,7 @@
 
     .phonebook-contacts {
        display: flex;
+       flex-wrap: wrap;
        gap: 10px;
        margin-top: 20px;
     }
