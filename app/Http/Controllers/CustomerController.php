@@ -3,8 +3,10 @@
 namespace App\Http\Controllers;
 
 use App\Http\Resources\CustomerResource;
+use App\Imports\CustomersImport;
 use App\Models\Customer;
 use Illuminate\Http\Request;
+use Maatwebsite\Excel\Facades\Excel;
 
 class CustomerController extends Controller
 {
@@ -78,5 +80,33 @@ class CustomerController extends Controller
         $customer->delete();
 
         return redirect()->route('customers.index')->with('success', 'Customer deleted successfully.');
+    }
+
+
+    public function import(Request $request)
+    {
+        $request->validate([
+            'file' => 'required|mimes:xlsx,csv',
+        ]);
+
+        $import = new CustomersImport();
+
+        try {
+            Excel::import($import, $request->file('file'));
+
+            $results = $import->results;
+
+            return response()->json([
+                'success' => true,
+                'message' => "{$results['success']} customers imported successfully.",
+                'skipped' => "{$results['skipped']} duplicate records were skipped.",
+                'errors' => $results['errors'],
+            ]);
+        } catch (\Exception $e) {
+            return response()->json([
+                'success' => false,
+                'message' => 'Error during import: ' . $e->getMessage(),
+            ], 500);
+        }
     }
 }

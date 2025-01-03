@@ -38,7 +38,8 @@ class LeadController extends Controller
         ];
         $customer = Customer::create($customerData);
 
-        $lead->converted = 1;
+        $lead->convertedToCustomer = 1;
+        $lead->save();
         // Return a success response
         return response()->json([
             'message' => 'Lead successfully converted to customer',

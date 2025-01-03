@@ -12,6 +12,7 @@
         "laravel/tinker": "^2.9",
         "laravel/ui": "^4.6",
         "livewire/livewire": "^3.5",
+        "maatwebsite/excel": "*",
         "spatie/laravel-activitylog": "^4.9",
         "spatie/laravel-medialibrary": "^11.10",
         "spatie/laravel-permission": "^6.10",

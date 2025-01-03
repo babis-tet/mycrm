@@ -18,6 +18,7 @@ Route::middleware('auth')->group(function(){
     //customers
     Route::resource('customers', CustomerController::class);
     Route::any('customers/records', [App\Http\Controllers\CustomerController::class, 'records'])->name('customer_records');
+    Route::post('customers/import', [App\Http\Controllers\CustomerController::class, 'import'])->name('customer-import');
     Route::any('customer/contacts/{id}/{type}', [App\Http\Controllers\ContactController::class, 'records'])->name('customerContacts');
 
     //contact

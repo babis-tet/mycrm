@@ -4,7 +4,8 @@
 @section('content_header')
     <div class="flex gap-2">
         <h1>Πελάτες</h1>
-        <a class="btn btn-secondary" href="{{ route("customers.create") }}">Προσθήκη</a>
+        <a class="btn btn-secondary" href="{{ route("customers.create") }}"><i class="fas fa-plus"></i>&nbsp; Προσθήκη</a>
+        <a class="btn btn-secondary" data-toggle="modal" data-target="#customerImportModal"><i class="fas fa-file-excel"></i>&nbsp; Import</a>
     </div>
 @stop
 
@@ -20,6 +21,8 @@
                 </thead>
             </table>
         </div>
+
+       @include('inc.modals.customer.customerimport')
 @stop
 @section('css')
     {{-- Add here extra stylesheets --}}
@@ -39,5 +42,52 @@
                 { data: 'email', "type": "string" },
                 { data: 'action', "type": "html" }
             ]);
+
+
+            $(document).ready(function () {
+                $('#uploadfile').on('click', function (e) {
+                    e.preventDefault();
+                    let formData = new FormData();
+                    let fileInput = $('#customerInputFile')[0].files[0];
+
+                    if (!fileInput) {
+                        toastr.error('Please select a file.', 'Error');
+                        return;
+                    }
+
+                    formData.append('file', fileInput);
+
+                    $.ajax({
+                        url: '/customers/import', // Adjust this URL to your backend route
+                        method: 'POST',
+                        data: formData,
+                        contentType: false,
+                        processData: false,
+                        headers: {
+                            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content'), // Add CSRF token if necessary
+                        },
+                        success: function (response) {
+                            // Success toast
+                            toastr.success(response.message, 'Success');
+
+                            // Skipped records toast
+                            if (response.skipped ) {
+                                toastr.warning(response.skipped, 'Skipped Records');
+                            }
+
+                            // Errors toast
+                            if (response.errors && response.errors.length > 0) {
+                                response.errors.forEach(error => {
+                                    toastr.error(`Row: ${JSON.stringify(error.row)} - ${error.error}`, 'Error');
+                                });
+                            }
+                        },
+                        error: function (xhr) {
+                            // Error toast
+                            toastr.error(xhr.responseJSON.message || 'An unexpected error occurred.', 'Error');
+                        }
+                    });
+                });
+    });
     </script>
 @stop
