@@ -42,6 +42,7 @@
     .letters button {
         padding: 10px;
         font-size: 16px;
+        border: 1px solid;
     }
     .letters button.selected {
         background-color: #333a40;

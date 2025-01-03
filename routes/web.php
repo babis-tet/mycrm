@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\CustomerController;
+use App\Http\Controllers\LeadController;
 use App\Http\Controllers\SupplierController;
 use Illuminate\Support\Facades\Route;
 
@@ -32,6 +33,12 @@ Route::middleware('auth')->group(function(){
 
     //company
     Route::any('company', [App\Http\Controllers\CompanyController::class, 'index'])->name('company');
+
+
+    //leads
+    Route::resource('leads', LeadController::class);
+    Route::any('leads/records', [App\Http\Controllers\LeadController::class, 'records'])->name('leads_records');
+
 
 
     Route::get('users', [App\Http\Controllers\UserController::class, 'index'])->name('users');
