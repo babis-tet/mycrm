@@ -12,11 +12,19 @@
         <div class="col-md-12">
             <div class="card card-secondary">
                 <div class="card-header">
-                    <h2>
-                        <i class="fas fa-fw fa-user "></i> {{isset($lead) ? "Επεξεργασία" : "Δημιουργία Lead"}}
-                    </h2>
-                </div>
 
+                    <div class="user-block mt-2">
+                        <span><i class="fas fa-fw fa-user "></i> {{isset($lead) ? "Επεξεργασία" : "Δημιουργία Lead"}}</span>
+                    </div>
+
+                    <div class="card-tools">
+                        @if ($lead->converted == 0)
+                        <button type="button" class="btn btn-primary" id="convertToCustomer">
+                            <i class="fas fa-fw fa-user "></i> Μετατροπή σε πελάτη
+                        </button>
+                        @endif
+                    </div>
+                </div>
 
                 <div class="card-body" bis_skin_checked="1">
                     <ul class="nav nav-tabs" id="custom-content-below-tab" role="tablist">
@@ -213,4 +221,32 @@
 
 @section('js')
     @include('inc.mainjs')
+
+    <script>
+        $(document).ready(function() {
+            $("#convertToCustomer").click(function(){
+
+                var lead_id = {{ isset($lead) ? $lead->id : 0 }};
+
+                $.ajax({
+                    type:"POST",
+                    url:"/leads/convert-to-customer",
+                    data:{
+                        id: lead_id,
+                        _token: "{{ csrf_token() }}"
+                    },
+                    success: function(data, textStatus, jqXHR) {
+                        toastr.success("Lead converted to customer");
+                        setTimeout(function() {
+                            window.location.href = `/customers/${data.customer_id}/edit`;
+                        }, 2000); // 2000 milliseconds = 2 seconds
+                    },
+                    error: function(jqXHR, textStatus, errorThrown) {
+                        toastr.error("An error occurred while converting the lead.");
+                    }
+                });
+
+            });
+        });
+    </script>
 @stop

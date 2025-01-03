@@ -83,7 +83,7 @@ class PermissionController extends Controller
     {
         //abort_if(Gate::denies('permission_access'), Response::HTTP_FORBIDDEN, '403 Forbidden');
 
-        $record = \App\Models\Permission::find($id);
+        $record = Permission::find($id);
 
         return view('permissions.permission')->with('record',$record)->with('action','update');
     }

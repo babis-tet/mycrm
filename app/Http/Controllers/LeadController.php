@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Http\Resources\LeadResource;
+use App\Models\Customer;
 use App\Models\Lead;
 use Illuminate\Http\Request;
 
@@ -18,6 +19,31 @@ class LeadController extends Controller
                 $html .= '<button data-rowid="' . $row['id'] . '" class="btn btn-xs btn-danger"><i class="fa fa-trash"></i> Διαγραφή</button>';
                 return $html;
             })->toJson();
+    }
+
+
+    public function convert(Request $request) {
+        $request->validate([
+            'id' => 'required|integer|exists:leads,id', // Ensure the ID exists in the leads table
+        ]);
+        $lead = Lead::findOrFail($request->id);
+
+        $customerData = [
+            'name' => $lead->name,
+            'email' => $lead->email,
+            'phone' => $lead->phone,
+            'address' => $lead->address,
+            'vat' => $lead->vat,
+            'activity' => $lead->activity
+        ];
+        $customer = Customer::create($customerData);
+
+        $lead->converted = 1;
+        // Return a success response
+        return response()->json([
+            'message' => 'Lead successfully converted to customer',
+            'customer_id' => $customer->id,
+        ], 200);
     }
 
     /**
