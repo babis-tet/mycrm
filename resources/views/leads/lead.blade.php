@@ -18,7 +18,7 @@
                     </div>
 
                     <div class="card-tools">
-                        @if ($lead->convertedToCustomer == 0)
+                        @if (isset($lead) && $lead->convertedToCustomer == 0)
                         <button type="button" class="btn btn-primary" id="convertToCustomer">
                             <i class="fas fa-fw fa-user "></i> Μετατροπή σε πελάτη
                         </button>
