@@ -22,6 +22,8 @@ return new class extends Migration
             $table->text('zipcode')->nullable();
             $table->text('city')->nullable();
             $table->string('source')->nullable();
+            $table->unsignedBigInteger('source_id')->nullable(); // Define here
+            $table->unsignedBigInteger('category_id')->nullable(); // Define here
             $table->text('notes')->nullable();
             $table->timestamps();
         });

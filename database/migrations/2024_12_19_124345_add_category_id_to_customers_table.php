@@ -12,7 +12,8 @@ return new class extends Migration
     public function up(): void
     {
         Schema::table('customers', function (Blueprint $table) {
-            $table->foreignId('category_id')->nullable()->constrained('customer_category')->onDelete('set null');
+            $table->foreign('category_id')->references('id')->on('customer_categories')->onDelete('set null');
+            //$table->foreign('source_id')->references('id')->on('sources')->onDelete('set null');
         });
     }
 
@@ -22,8 +23,8 @@ return new class extends Migration
     public function down(): void
     {
         Schema::table('customers', function (Blueprint $table) {
-            $table->dropForeign(['category_id']);
-            $table->dropColumn('category_id');
+            //$table->dropForeign(['category_id']);
+            //$table->dropColumn('category_id');
         });
     }
 };
