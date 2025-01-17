@@ -36,7 +36,7 @@
         display: flex;
         justify-content: center;
         gap: 10px;
-        width: 500px;
+        /*width: 500px;*/
         flex-wrap: wrap;
         padding-right: 10px;
         width: 100%;
