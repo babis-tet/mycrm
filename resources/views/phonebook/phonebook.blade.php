@@ -36,7 +36,11 @@
         display: flex;
         justify-content: center;
         gap: 10px;
-        padding-top:20px;
+        width: 500px;
+        flex-wrap: wrap;
+        padding-right: 10px;
+        width: 100%;
+        margin-top: 10px;
     }
 
     .letters button {
