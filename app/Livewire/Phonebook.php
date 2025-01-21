@@ -46,7 +46,7 @@ class Phonebook extends Component
 
         $customers = Customer::where('name', 'LIKE', "$letter%")->orderBy('name')->get()->toArray();
         $suppliers = Supplier::where('name', 'LIKE', "$letter%")->orderBy('name')->get()->toArray();
-        $contacts = Contact::where('name', 'LIKE', "$letter%")->orderBy('name')->get()->toArray();
+        $contacts = Contact::where('name', 'LIKE', "$letter%")->orwhere('surname', 'LIKE', "$letter%")->orderBy('name')->get()->toArray();
         $leads = Lead::where('name', 'LIKE', "$letter%")->orderBy('name')->get()->toArray();
 
         // Merge and sort the arrays
