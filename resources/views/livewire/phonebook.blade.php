@@ -36,7 +36,7 @@
               <!-- Add the bg color to the header using any of the bg-* classes -->
               <div class="widget-user-header" style="background: #d9e0e8">
                 <h5 class="widget-user-desc"><i class="fas fa-fw fa-user "></i></h5>
-                  <h3 class="widget-user-username">{{ $record['name'] ?? '' }}</h3>
+                  <h3 class="widget-user-username">{{ $record['name'].' '.$record['surname'] ?? '' }}</h3>
               </div>
               <div class="widget-user-image">
 
