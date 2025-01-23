@@ -3,9 +3,11 @@
 namespace App\Http\Controllers;
 
 use App\Http\Resources\LeadResource;
+use App\Imports\LeadsImport;
 use App\Models\Customer;
 use App\Models\Lead;
 use Illuminate\Http\Request;
+use Maatwebsite\Excel\Facades\Excel;
 
 class LeadController extends Controller
 {
@@ -121,5 +123,33 @@ class LeadController extends Controller
     {
         $lead->delete();
         return redirect()->route('leads.index')->with('success', 'Lead deleted successfully.');
+    }
+
+
+    public function import(Request $request)
+    {
+        $request->validate([
+            'file' => 'required|mimes:xlsx,csv',
+        ]);
+
+        $import = new LeadsImport();
+
+        try {
+            Excel::import($import, $request->file('file'));
+
+            $results = $import->results;
+
+            return response()->json([
+                'success' => true,
+                'message' => "{$results['success']} lead imported successfully.",
+                'skipped' => "{$results['skipped']} duplicate records were skipped.",
+                'errors' => $results['errors'],
+            ]);
+        } catch (\Exception $e) {
+            return response()->json([
+                'success' => false,
+                'message' => 'Error during import: ' . $e->getMessage(),
+            ], 500);
+        }
     }
 }

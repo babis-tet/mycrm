@@ -81,6 +81,8 @@
                                     toastr.error(`Row: ${JSON.stringify(error.row)} - ${error.error}`, 'Error');
                                 });
                             }
+
+                            $('#customerImportModal').modal('hide');
                         },
                         error: function (xhr) {
                             // Error toast

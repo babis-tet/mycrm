@@ -11,8 +11,8 @@
                       <div class="input-group-append">
                         <span class="input-group-text" wire:click="uploadfile" @if ($myfilename) style="background:green;color:#fff;cursor:pointer" @endif>Upload</span>
                       </div>
-
                     </div>
+        @error('myfilename') <span class="error text-danger">{{ $message }}</span> @enderror
     </div>
     @if (session()->has('message'))
         <p class="text-green-500">{{ session('message') }}</p>

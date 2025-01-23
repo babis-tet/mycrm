@@ -38,4 +38,10 @@
 
 @section('js')
 
+
+    <script>
+        Livewire.on("test", () => {
+            alert("yolo")
+        })
+    </script>
 @stop

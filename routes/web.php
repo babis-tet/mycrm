@@ -39,6 +39,7 @@ Route::middleware('auth')->group(function(){
     //leads
     Route::resource('leads', LeadController::class);
     Route::any('leads/records', [App\Http\Controllers\LeadController::class, 'records'])->name('leads_records');
+    Route::post('leads/import', [App\Http\Controllers\LeadController::class, 'import'])->name('lead-import');
     Route::post('leads/convert-to-customer', [App\Http\Controllers\LeadController::class, 'convert'])->name('convert-to-customer');
 
 
