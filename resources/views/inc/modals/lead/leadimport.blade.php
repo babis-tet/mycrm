@@ -24,7 +24,7 @@
                         <td>My address</td>
                     </tr>
                 </table>
-                <a href="{{ url('/import/leads-import.xlsx') }}" download class="px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600">Example File</a>
+                <a href="{{ url('/import/leads-import.xlsx') }}" download class="btn btn-secondary">Example File</a>
                 <form id="import" class="mt-10">
                     <div class="form-group">
                     <label for="customerInputFile">Αρχείο (.xls, csv)</label>
