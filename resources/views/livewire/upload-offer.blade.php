@@ -54,7 +54,7 @@
                       <td>{{ $document->created_at->format('d/m/Y') }}</td>
                       <td>{{ $document->name }}</td>
                       <td> <a href="{{ $document->getFirstMediaUrl() }}" target="_blank" class="text-blue-500 underline">Download</a></td>
-                        <td><button wire:click="deleteFile({{ $document->id }})" class="btn btn-danger btn-sm ml-2">Delete</button></td>
+                        <td><button wire:confirm="Να γίνει διαγραφή;" wire:click="deleteFile({{ $document->id }})" class="btn btn-danger btn-sm ml-2">Delete</button></td>
                     </tr>
                       @empty
                     @endforelse

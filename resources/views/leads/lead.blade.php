@@ -31,6 +31,9 @@
                         <li class="nav-item">
                             <a class="nav-link" id="general-tab" data-toggle="pill" href="#general" role="tab" aria-controls="general" aria-selected="true"> <i class="fas fa-fw fa-user "></i> Στοιχεία</a>
                         </li>
+                         <li class="nav-item">
+                            <a class="nav-link" id="offers-tab" data-toggle="pill" href="#offers" role="tab" aria-controls="offers" aria-selected="false"><i class="fas fa-fw fa-paste"></i> Προσφορές</a>
+                        </li>
                     </ul>
                     <br>
                     <div class="tab-content" id="custom-content-below-tabContent" bis_skin_checked="1">
@@ -205,7 +208,11 @@
                             </form>
 
                         </div>
-
+                        <div class="tab-pane fade" id="offers" role="tabpanel" aria-labelledby="offers-tab" bis_skin_checked="1">
+                            @isset($lead)
+                                <livewire:upload-offer :id="$lead->id" model="lead" />
+                            @endisset
+                        </div>
                     </div>
                 </div>
 

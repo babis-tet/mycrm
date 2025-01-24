@@ -212,7 +212,7 @@
                         </div>
                         <div class="tab-pane fade" id="offers" role="tabpanel" aria-labelledby="offers-tab" bis_skin_checked="1">
                             @isset($customer)
-                               <livewire:upload-offer :id="$customer->id" />
+                               <livewire:upload-offer :id="$customer->id" model="customer" />
                             @endisset
                         </div>
                         <div class="tab-pane fade" id="contracts" role="tabpanel" aria-labelledby="contracts-tab" bis_skin_checked="1">
