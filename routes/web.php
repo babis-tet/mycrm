@@ -15,6 +15,10 @@ Auth::routes(['register' => false]);
 Route::middleware('auth')->group(function(){
     Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 
+    Route::get('/ai', function () {
+         return view('ai');
+    });
+
     //customers
     Route::resource('customers', CustomerController::class);
     Route::any('customers/records', [App\Http\Controllers\CustomerController::class, 'records'])->name('customer_records');

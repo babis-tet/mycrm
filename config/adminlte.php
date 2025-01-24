@@ -364,6 +364,14 @@ return [
             //'can'  => 'customer_access',
         ],
         [
+            'text'        => 'Βοηθός Ai',
+            'url'         => 'ai',
+            'icon' => 'fas fas fa-robot',
+            //'label'       => 4,
+            'label_color' => 'success',
+            //'can'  => 'customer_access',
+        ],
+        [
             'text'        => 'Υπάλληλοι',
             'url'         => 'employee',
             'icon' => 'fas fa-fw fa-book',
