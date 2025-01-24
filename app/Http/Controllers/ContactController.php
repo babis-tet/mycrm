@@ -28,7 +28,7 @@ class ContactController extends Controller
 
         return datatables()->of($contacts)
             ->addColumn('action', function ($row) {
-                $html = '<button value="' . $row['id'] . '" class="btn btn-xs btn-secondary editRecord"><i class="fa fa-edit"></i> Επεξεργασία</button>';
+                $html = '<button value="' . $row['id'] . '" class="btn btn-xs btn-secondary editRecord mr-1"><i class="fa fa-edit"></i> Επεξεργασία</button>';
                 $html .= '<button value="' . $row['id'] . '" class="btn btn-xs btn-danger"><i class="fa fa-trash"></i> Διαγραφή</button>';
                 return $html;
             })->toJson();
@@ -56,9 +56,6 @@ class ContactController extends Controller
      */
     public function store(Request $request)
     {
-
-        //dd($request->all());
-
         if ($request->contactable_type == 'customer') {
             $type = Customer::class;
         } elseif ($request->contactable_type == 'supplier') {
@@ -116,9 +113,15 @@ class ContactController extends Controller
             'email' => 'required|email',
         ]);
 
+        $type = $request->contactable_type == 'customer' ? Customer::class : Supplier::class;
+
         $data = array_merge(
-            $validated,                // Validated fields
-            $request->all()         // All other request data
+            $validated,
+            $request->all(),
+            [
+                'contactable_id'   => $request->contactable_id, // Additional static/dynamic fields
+                'contactable_type' => $type,
+            ]
         );
 
         $contact->update($data);

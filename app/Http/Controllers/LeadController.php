@@ -72,10 +72,10 @@ class LeadController extends Controller
     {
         $validated = $request->validate([
             'name' => 'required|string|max:255',
-            'activity' => 'required|string|max:255',
             'email' => 'required|email|unique:leads',
             'phone' => 'nullable|string|max:15',
-            'vat' => 'required|numeric',
+            //'activity' => 'required|string|max:255',
+            //'vat' => 'required|numeric',
         ]);
 
         Lead::create($validated);
@@ -106,10 +106,10 @@ class LeadController extends Controller
     {
         $validated = $request->validate([
             'name' => 'required|string|max:255',
-            'activity' => 'required|string|max:255',
             'email' => 'required|email|unique:leads,email,' . $lead->id,
             'phone' => 'nullable|string|max:15',
-            'vat' => 'required|numeric',
+            //'activity' => 'required|string|max:255',
+            //'vat' => 'required|numeric',
         ]);
         // Update the lead
         $lead->update($request->all());
